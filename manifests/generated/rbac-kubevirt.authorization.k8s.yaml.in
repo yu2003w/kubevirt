@@ -162,14 +162,14 @@ metadata:
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: kubevirt-controller-psp
+  name: kubevirt-launcher-psp
 spec:
   allowedCapabilities:
   - NET_ADMIN
   - SYS_NICE
+  - SYS_RESOURCE
   fsGroup:
     rule: RunAsAny
-  privileged: true
   runAsUser:
     rule: RunAsAny
   seLinux:
@@ -264,7 +264,7 @@ rules:
 - apiGroups:
   - policy
   resourceNames:
-  - kubevirt-controller-psp
+  - kubevirt-launcher-psp
   resources:
   - podsecuritypolicies
   verbs:

@@ -59,13 +59,14 @@ func newControllerPodSecurityPolicy() *pspv1b1.PodSecurityPolicy {
 			Kind:       "PodSecurityPolicy",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "kubevirt-controller-psp",
+			Name: "kubevirt-launcher-psp",
 		},
 		Spec: pspv1b1.PodSecurityPolicySpec{
-			Privileged: true,
+			Privileged: false,
 			AllowedCapabilities: []corev1.Capability{
 				"NET_ADMIN",
 				"SYS_NICE",
+				"SYS_RESOURCE",
 			},
 			SELinux: pspv1b1.SELinuxStrategyOptions{
 				Rule: pspv1b1.SELinuxStrategyRunAsAny,
@@ -206,7 +207,7 @@ func newControllerClusterRole() *rbacv1.ClusterRole {
 					"podsecuritypolicies",
 				},
 				ResourceNames: []string{
-					"kubevirt-controller-psp",
+					"kubevirt-launcher-psp",
 				},
 				Verbs: []string{
 					"use",
